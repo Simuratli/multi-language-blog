@@ -27,7 +27,7 @@ const Navbar = () => {
     
 
     return (
-        <nav className="w-full p-3 bg-white flex justify-between items-center">
+        <nav className="w-full py-3 bg-white flex justify-between items-center">
             {/* Logo Section */}
             <Logo />
 
