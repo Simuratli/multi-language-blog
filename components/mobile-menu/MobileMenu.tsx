@@ -25,6 +25,7 @@ import { createNavRouting } from "@/constants/route";
 import { useLocale } from "next-intl";
 import Image from "next/image";
 import { usePathname } from "@/app/i18n/routing";
+import LanguageSwitcher from "../language-switcher/language-swithcer";
 
 // Menu items.
 
@@ -124,24 +125,7 @@ function AppSidebar() {
                   </SidebarMenuItem>
                 );
               })}
-              <SidebarMenuItem key={"Language"}>
-                <SidebarMenuButton>
-                  <Image
-                    onClick={() => changeLanguage("en")}
-                    alt="United States"
-                    src="http://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg"
-                    width={30}
-                    height={20}
-                  />
-                  <Image
-                    onClick={() => changeLanguage("az")}
-                    alt="Azerbaijan"
-                    src="http://purecatamphetamine.github.io/country-flag-icons/3x2/AZ.svg"
-                    width={30}
-                    height={20}
-                  />
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              <LanguageSwitcher sidebar/>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

@@ -27,6 +27,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { createNavRouting } from "@/constants/route";
 import Image from "next/image";
 import { usePathname } from "@/app/i18n/routing";
+import LanguageSwitcher from "../language-switcher/language-swithcer";
 
 const Navbar = () => {
     const { toggleSidebar, openMobile } = useSidebar();
@@ -41,7 +42,7 @@ const Navbar = () => {
         const newUrl = `/${locale}${currentPath}`; // Construct the new URL
         window.location.href = newUrl; // Reload the page with the new locale
     };
-    
+
     return (
         <nav className="w-full p-3 bg-white flex justify-between items-center">
             {/* Logo Section */}
@@ -98,35 +99,7 @@ const Navbar = () => {
                                 </NavigationMenuItem>
                             );
                         })}
-                        <NavigationMenuItem>
-                            <Menubar className="bg-transparent border-none shadow-none cursor-pointer">
-                                <MenubarMenu>
-                                    <MenubarTrigger>
-                                        <Languages className="w-6 h-6" />
-                                    </MenubarTrigger>
-                                    <MenubarContent className="mr-3">
-                                        <MenubarItem onClick={() => changeLanguage("en")}>
-                                            <Image
-                                                alt="United States"
-                                                src="http://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg"
-                                                width={30}
-                                                height={20}
-                                            />
-                                            English
-                                        </MenubarItem>
-                                        <MenubarItem onClick={() => changeLanguage("az")}>
-                                            <Image
-                                                alt="Azerbaijan"
-                                                src="http://purecatamphetamine.github.io/country-flag-icons/3x2/AZ.svg"
-                                                width={30}
-                                                height={20}
-                                            />
-                                            Azərbaycanca
-                                        </MenubarItem>
-                                    </MenubarContent>
-                                </MenubarMenu>
-                            </Menubar>
-                        </NavigationMenuItem>
+                        <LanguageSwitcher sidebar={false}/>
                     </NavigationMenuList>
                 </NavigationMenu>
             </div>
