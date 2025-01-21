@@ -22,7 +22,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import Logo from "../logo/logo";
 import { createNavRouting } from "@/constants/route";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import LanguageSwitcher from "../language-switcher/language-swithcer";
 
 // Menu items.
@@ -31,7 +31,7 @@ function AppSidebar() {
   const locale = useLocale();
   const nav_routing = createNavRouting(locale);
   const [isOpen, setIsOpen] = useState(false);
-
+  const t = useTranslations("Navbar");
 
   const pathName = window.location.pathname;
   return (
@@ -61,7 +61,7 @@ function AppSidebar() {
                       >
                         <SidebarMenuButton className="w-full flex justify-between font-bold">
                           <div className="w-full flex gap-2 items-center">
-                            <menu.icon className="w-4 h-4" /> Categories
+                            <menu.icon className="w-4 h-4" /> {t(menu.title)}
                           </div>
                           <ChevronDown
                             className={cn(
@@ -90,7 +90,7 @@ function AppSidebar() {
                                   href={child.url}
                                 >
                                   <child.icon className="w-4 h-4" />
-                                  {child.title}
+                                  {t(child.title)}
                                 </Link>
                               </SidebarMenuSubItem>
                             );
@@ -110,7 +110,7 @@ function AppSidebar() {
                     >
                       <a href={menu.url}>
                         <menu.icon className="w-4 h-4" />
-                        <span>{menu.title}</span>
+                        <span> {t(menu.title)}</span>
                       </a>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
