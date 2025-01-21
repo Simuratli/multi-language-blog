@@ -23,8 +23,6 @@ import { cn } from "@/lib/utils";
 import Logo from "../logo/logo";
 import { createNavRouting } from "@/constants/route";
 import { useLocale } from "next-intl";
-import Image from "next/image";
-import { usePathname } from "@/app/i18n/routing";
 import LanguageSwitcher from "../language-switcher/language-swithcer";
 
 // Menu items.
@@ -33,13 +31,6 @@ function AppSidebar() {
   const locale = useLocale();
   const nav_routing = createNavRouting(locale);
   const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname(); // Get the current path
-
-  const changeLanguage = (locale: string) => {
-    const currentPath = pathname || "/";
-    const newUrl = `/${locale}${currentPath}`; // Construct the new URL
-    window.location.href = newUrl; // Reload the page with the new locale
-  };
 
 
   const pathName = window.location.pathname;

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -10,23 +10,12 @@ import {
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
-import { Languages, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useSidebar } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import Logo from "../logo/logo";
-import {
-    Menubar,
-    MenubarItem,
-    MenubarMenu,
-    MenubarSeparator,
-    MenubarShortcut,
-    MenubarTrigger,
-    MenubarContent,
-} from "../ui/menubar";
 import { useLocale, useTranslations } from "next-intl";
 import { createNavRouting } from "@/constants/route";
-import Image from "next/image";
-import { usePathname } from "@/app/i18n/routing";
 import LanguageSwitcher from "../language-switcher/language-swithcer";
 
 const Navbar = () => {
@@ -35,13 +24,7 @@ const Navbar = () => {
     const t = useTranslations("Navbar");
     const pathName = window?.location?.pathname;
     const nav_routing = createNavRouting(locale);
-    const pathname = usePathname(); // Get the current path
-
-    const changeLanguage = (locale: string) => {
-        const currentPath = pathname || "/";
-        const newUrl = `/${locale}${currentPath}`; // Construct the new URL
-        window.location.href = newUrl; // Reload the page with the new locale
-    };
+    
 
     return (
         <nav className="w-full p-3 bg-white flex justify-between items-center">
