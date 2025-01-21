@@ -1,0 +1,146 @@
+"use client";
+import React, { useState } from "react";
+import {
+    NavigationMenu,
+    NavigationMenuContent,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    NavigationMenuTrigger,
+    navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import Link from "next/link";
+import { Languages, Menu, X } from "lucide-react";
+import { useSidebar } from "@/components/ui/sidebar";
+import { cn } from "@/lib/utils";
+import Logo from "../logo/logo";
+import {
+    Menubar,
+    MenubarItem,
+    MenubarMenu,
+    MenubarSeparator,
+    MenubarShortcut,
+    MenubarTrigger,
+    MenubarContent,
+} from "../ui/menubar";
+import { useLocale, useTranslations } from "next-intl";
+import { createNavRouting } from "@/constants/route";
+import Image from "next/image";
+import { usePathname } from "@/app/i18n/routing";
+
+const Navbar = () => {
+    const { toggleSidebar, openMobile } = useSidebar();
+    const locale = useLocale();
+    const t = useTranslations("Navbar");
+    const pathName = window?.location?.pathname;
+    const nav_routing = createNavRouting(locale);
+    const pathname = usePathname(); // Get the current path
+
+    const changeLanguage = (locale: string) => {
+        const currentPath = pathname || "/";
+        const newUrl = `/${locale}${currentPath}`; // Construct the new URL
+        window.location.href = newUrl; // Reload the page with the new locale
+    };
+    
+    return (
+        <nav className="w-full p-3 bg-white flex justify-between items-center">
+            {/* Logo Section */}
+            <Logo />
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:block">
+                <NavigationMenu>
+                    <NavigationMenuList>
+                        {nav_routing.map((menu) => {
+                            return menu.children ? (
+                                <NavigationMenuItem key={menu.title}>
+                                    <NavigationMenuTrigger
+                                        className={cn(
+                                            menu.url.includes("categories")
+                                                ? "bg-[var(--yellow)]"
+                                                : "",
+                                        )}
+                                    >
+                                        {t(menu.title)}
+                                    </NavigationMenuTrigger>
+                                    <NavigationMenuContent className="transition-all duration-300 ease-in-out transform origin-top-left">
+                                        <div className="w-[200px] flex flex-col gap-2">
+                                            {menu.children.map((child) => {
+                                                return (
+                                                    <NavigationMenuLink
+                                                        key={child.title}
+                                                        className={cn(
+                                                            "hover:bg-gray-900 p-2 hover:text-white cursor-pointer",
+                                                            pathName === "/categories/novel"
+                                                                ? "bg-[var(--yellow)]"
+                                                                : null,
+                                                        )}
+                                                        asChild
+                                                    >
+                                                        <Link href={child.url}>{t(child.title)}</Link>
+                                                    </NavigationMenuLink>
+                                                );
+                                            })}
+                                        </div>
+                                    </NavigationMenuContent>
+                                </NavigationMenuItem>
+                            ) : (
+                                <NavigationMenuItem key={menu.title}>
+                                    <NavigationMenuLink
+                                        href={menu.url}
+                                        className={cn(
+                                            navigationMenuTriggerStyle(),
+                                            pathName === "/blog" ? "bg-[var(--yellow)]" : null,
+                                        )}
+                                    >
+                                        {t(menu.title)}
+                                    </NavigationMenuLink>
+                                </NavigationMenuItem>
+                            );
+                        })}
+                        <NavigationMenuItem>
+                            <Menubar className="bg-transparent border-none shadow-none cursor-pointer">
+                                <MenubarMenu>
+                                    <MenubarTrigger>
+                                        <Languages className="w-6 h-6" />
+                                    </MenubarTrigger>
+                                    <MenubarContent className="mr-3">
+                                        <MenubarItem onClick={() => changeLanguage("en")}>
+                                            <Image
+                                                alt="United States"
+                                                src="http://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg"
+                                                width={30}
+                                                height={20}
+                                            />
+                                            English
+                                        </MenubarItem>
+                                        <MenubarItem onClick={() => changeLanguage("az")}>
+                                            <Image
+                                                alt="Azerbaijan"
+                                                src="http://purecatamphetamine.github.io/country-flag-icons/3x2/AZ.svg"
+                                                width={30}
+                                                height={20}
+                                            />
+                                            Azərbaycanca
+                                        </MenubarItem>
+                                    </MenubarContent>
+                                </MenubarMenu>
+                            </Menubar>
+                        </NavigationMenuItem>
+                    </NavigationMenuList>
+                </NavigationMenu>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+                className="md:hidden text-xl"
+                onClick={toggleSidebar}
+                aria-label="Toggle Menu"
+            >
+                {openMobile ? <X /> : <Menu />}
+            </button>
+        </nav>
+    );
+};
+
+export default Navbar;

@@ -1,0 +1,11 @@
+{
+  "Navbar": {
+    "Categories": "Kateqoriyalar",
+    "Home": "Ana Səhifə",
+    "About": "Haqqımızda",
+    "Blog": "Blog",
+    "Novel": "Ədəbiyyat",
+    "Frontend": "Frontend",
+    "Backend": "Backend"
+  }
+}

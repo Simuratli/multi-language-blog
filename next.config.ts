@@ -1,7 +1,7 @@
-import type { NextConfig } from "next";
+const createNextIntlPlugin = require("next-intl/plugin");
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+const withNextIntl = createNextIntlPlugin("./app/i18n/request.ts"); // Use relative path
 
-export default nextConfig;
+const nextConfig = {};
+
+module.exports = withNextIntl(nextConfig);

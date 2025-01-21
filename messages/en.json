@@ -1,0 +1,10 @@
+{
+  "Navbar": {
+    "Categories": "Categories",
+    "About": "About",
+    "Blog": "Blog",
+    "Novel": "Novel",
+    "Frontend": "Frontend",
+    "Backend": "Backend"
+  }
+}
