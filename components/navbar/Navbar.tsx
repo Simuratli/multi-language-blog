@@ -40,7 +40,7 @@ const Navbar = () => {
                                 <NavigationMenuItem key={menu.title}>
                                     <NavigationMenuTrigger
                                         className={cn(
-                                            menu.url.includes("categories")
+                                            menu.url.includes(menu.url)
                                                 ? "bg-[var(--yellow)]"
                                                 : "",
                                         )}
@@ -55,7 +55,7 @@ const Navbar = () => {
                                                         key={child.title}
                                                         className={cn(
                                                             "hover:bg-gray-900 p-2 hover:text-white cursor-pointer",
-                                                            pathName === "/categories/novel"
+                                                            pathName === child.url
                                                                 ? "bg-[var(--yellow)]"
                                                                 : null,
                                                         )}
