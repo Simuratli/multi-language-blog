@@ -24,7 +24,7 @@ import Logo from "../logo/logo";
 import { createNavRouting } from "@/constants/route";
 import { useLocale, useTranslations } from "next-intl";
 import LanguageSwitcher from "../language-switcher/language-swithcer";
-
+import { usePathname } from "next/navigation";
 // Menu items.
 
 function AppSidebar() {
@@ -32,8 +32,8 @@ function AppSidebar() {
   const nav_routing = createNavRouting(locale);
   const [isOpen, setIsOpen] = useState(false);
   const t = useTranslations("Navbar");
+  let pathName = usePathname();
 
-  const pathName = window.location.pathname;
   return (
     <Sidebar>
       <SidebarContent>
@@ -116,7 +116,7 @@ function AppSidebar() {
                   </SidebarMenuItem>
                 );
               })}
-              <LanguageSwitcher sidebar/>
+              <LanguageSwitcher sidebar />
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

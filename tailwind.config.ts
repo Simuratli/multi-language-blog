@@ -5,6 +5,7 @@ export default {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./containers/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
@@ -66,10 +67,10 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      fontFamily:{
-        serif:['Source Serif 4', 'serif'],
-        sans:['Montserrat', 'sans-serif']
-      }
+      fontFamily: {
+        serif: ["Source Serif 4", "serif"],
+        sans: ["Montserrat", "sans-serif"],
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

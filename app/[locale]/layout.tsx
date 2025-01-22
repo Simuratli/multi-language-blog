@@ -6,9 +6,6 @@ import Navbar from "@/components/navbar";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 
-
-
-
 export const metadata: Metadata = {
   title: "U Tech Blog",
   description: "Tech blog about development",
@@ -27,7 +24,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={` antialiased`}>
+      <body className={`antialiased`}>
         <NextIntlClientProvider messages={messages}>
           <SidebarProvider defaultOpen={false}>
             <AppSidebar />
