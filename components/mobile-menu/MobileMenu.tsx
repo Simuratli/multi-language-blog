@@ -32,7 +32,7 @@ function AppSidebar() {
   const nav_routing = createNavRouting(locale);
   const [isOpen, setIsOpen] = useState(false);
   const t = useTranslations("Navbar");
-  let pathName = usePathname();
+  const pathName = usePathname();
 
   return (
     <Sidebar>
