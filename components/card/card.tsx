@@ -4,6 +4,7 @@ import { getLocale } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 interface CardProps {
   size: CARD_SIZE_ENUM;
@@ -27,7 +28,7 @@ const Card = async ({ size, date, id, image, title }: CardProps) => {
           size === CARD_SIZE_ENUM.LARGE
             ? "h-[200px] md:h-[480px] lg:h-[560px]"
             : size === CARD_SIZE_ENUM.MEDIUM
-              ? "h-[200] md:h-[480px]"
+              ? "h-[200] md:h-[300px] lg:h-[360px]"
               : "h-[200px] md:h-[480px] lg:h-[200px]",
         )}
       >
@@ -44,11 +45,24 @@ const Card = async ({ size, date, id, image, title }: CardProps) => {
         >
           {title}
         </h1>
-        <p
-          className={`text-[18px] ${size === CARD_SIZE_ENUM.LARGE && "md:text-[24px]"}   text-[var(--yellow)]`}
-        >
-          {date}
-        </p>
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <Avatar className="w-8 h-8">
+              <AvatarImage src="https://pravoslavie.ru/sas/image/100538/53893.x.jpg" />
+              <AvatarFallback>DY</AvatarFallback>
+            </Avatar>
+            <p
+              className={`text-[14px] ${size === CARD_SIZE_ENUM.LARGE && "md:text-[18px]"} font-bold`}
+            >
+              Dostoyevsky
+            </p>
+          </div>
+          <p
+            className={`text-[14px] ${size === CARD_SIZE_ENUM.LARGE && "md:text-[18px]"}   text-[var(--yellow)]`}
+          >
+            {date}
+          </p>
+        </div>
       </div>
     </Link>
   );
