@@ -3,7 +3,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className=" flex-col gap-8 sm:flex-row flex justify-between items-center py-10">
+    <footer className="px-5 flex-col gap-8 sm:flex-row flex justify-between items-center py-10">
       <p className="font-semibold text-[14px]">
         © 2025 Blog Template. All rights reserved.
       </p>

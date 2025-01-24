@@ -29,11 +29,13 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <SidebarProvider defaultOpen={false}>
             <AppSidebar />
-            <main className="w-full  max-w-[1240px] mx-auto px-4">
-              <Navbar />
-              {children}
+            <div className="mx-auto w-full">
+              <main className="w-full min-h-[88vh] max-w-[1240px] mx-auto px-4">
+                <Navbar />
+                {children}
+              </main>
               <Footer />
-            </main>
+            </div>
           </SidebarProvider>
         </NextIntlClientProvider>
       </body>
