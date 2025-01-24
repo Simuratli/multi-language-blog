@@ -1,6 +1,5 @@
 import Card from "@/components/card/card";
 import Paging from "@/components/paging/paging";
-import Popular from "@/containers/popular/popular";
 import { CARD_SIZE_ENUM } from "@/types/enums";
 import React from "react";
 

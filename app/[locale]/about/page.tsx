@@ -26,18 +26,18 @@ const AboutPage = () => {
       <div className="container flex flex-col gap-10 p-0 py-10 lg:px-28 text-[24px]">
         <p>
           As a Frontend Developer with over 5 years of experience, I specialize
-          in technologies like React, Next.js, and TypeScript. I'm deeply
+          in technologies like React, Next.js, and TypeScript. I&apos;m deeply
           passionate about technological innovation and continuous learning in
           the software development ecosystem.
         </p>
         <p>
-          I'm an active contributor to open-source development, consistently
+          I&apos;m an active contributor to open-source development, consistently
           expanding my technical skills and sharing knowledge through community
           initiatives and technical content creation.
         </p>
         <p>
           My technical interests span web and frontend technologies, with a
-          focus on creating high-performance, scalable applications. I'm
+          focus on creating high-performance, scalable applications. I&apos;m
           committed to staying at the forefront of emerging web development
           trends.
         </p>
