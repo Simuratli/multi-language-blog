@@ -28,7 +28,7 @@ const Card = async ({ size, date, id, image, title }: CardProps) => {
           size === CARD_SIZE_ENUM.LARGE
             ? "h-[200px] md:h-[480px] lg:h-[560px]"
             : size === CARD_SIZE_ENUM.MEDIUM
-              ? "h-[200] md:h-[300px] lg:h-[360px]"
+              ? "h-[200px] md:h-[300px] lg:h-[360px]"
               : "h-[200px] md:h-[480px] lg:h-[200px]",
         )}
       >
