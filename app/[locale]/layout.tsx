@@ -24,10 +24,10 @@ async function getCategories() {
   return categories;
 }
 
-async function getPosts() {
-  const categories = await client.fetch(categoriesQuery);
-  return categories;
-}
+// async function getPosts() {
+//   const categories = await client.fetch(categoriesQuery);
+//   return categories;
+// }
 
 export const metadata: Metadata = {
   title: "U Tech Blog",
