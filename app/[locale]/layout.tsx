@@ -41,7 +41,7 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale();
   const categories = await getCategories();
-  const posts = await getPosts();
+  // const posts = await getPosts();
 
   // Providing all messages to the client
   // side is the easiest way to get started
