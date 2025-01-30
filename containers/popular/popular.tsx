@@ -1,39 +1,44 @@
 import Card from "@/components/card/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import client from "@/sanity";
 import { CARD_SIZE_ENUM } from "@/types/enums";
+import { PostType } from "@/types/global.types";
+import groq from "groq";
 import React from "react";
 
-const Popular = () => {
+const popularPostsQuery = groq`*[_type == "post"] | order(_createdAt asc)[0..2] {
+  ...,
+  author-> {
+    _id,
+    name,
+    image ,
+    slug {
+      current
+    },
+    _createdAt,
+    _updatedAt
+  },
+  categories[]-> {
+    _id,
+    title
+  }
+}`;
+
+const Popular = async () => {
+  const popularPosts: PostType[] = await client.fetch(popularPostsQuery);
   return (
     <div className=" mx-auto my-[56px]">
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Main featured card */}
-        <div className="lg:w-2/3 ">
-          <Card
-            size={CARD_SIZE_ENUM.LARGE}
-            date="2021-09-09"
-            id="123"
-            image="https://miro.medium.com/v2/resize:fit:720/format:webp/1*liYz-YLEZY9SYvesH4OUlg.png"
-            title="Web Səhifələr Necə Render Olunur: Client-Side Render (CSR), Server-Side Render(SSR) və Incremental Static Regeneration(İSR) İzahı"
-          />
-        </div>
+        {popularPosts.length > 0 && (
+          <Card size={CARD_SIZE_ENUM.LARGE} post={popularPosts[0]} />
+        )}
 
         {/* Secondary cards */}
         <div className="flex flex-col gap-5 lg:w-1/3">
-          <Card
-            size={CARD_SIZE_ENUM.SMALL}
-            date="2021-09-09"
-            id="1234"
-            image="https://miro.medium.com/v2/resize:fit:4800/format:webp/1*op-lGnQhzCq1udMIyMd2pA.png"
-            title="Mastering LinkedIn Data Extraction: Build a Chrome Extension to Scrape User Details — An Advanced Guide"
-          />
-          <Card
-            size={CARD_SIZE_ENUM.SMALL}
-            date="2021-09-09"
-            id="1235"
-            image="https://miro.medium.com/v2/resize:fit:720/format:webp/1*N9iL29SS2B4-H2w3vz_A2w.png"
-            title="Mastering SVG: A Comprehensive Guide to Scalable Vector Graphics for Web Developers"
-          />
+          {popularPosts.slice(1).map((post) => (
+            <Card size={CARD_SIZE_ENUM.SMALL} post={post} />
+          ))}
         </div>
       </div>
     </div>
@@ -87,3 +92,4 @@ Popular.Skeleton = function PopularSkeleton() {
     </div>
   );
 };
+export const revalidate = 60; // Revalidate the component data every 60 seconds

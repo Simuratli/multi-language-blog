@@ -18,12 +18,14 @@ import { useLocale, useTranslations } from "next-intl";
 import { createNavRouting } from "@/constants/route";
 import LanguageSwitcher from "../language-switcher/language-swithcer";
 import { usePathname } from "next/navigation";
+import { useStore } from "@/store";
 
 const Navbar = () => {
   const { toggleSidebar, openMobile } = useSidebar();
-  const locale = useLocale();
+  const locale = useLocale() as "az" | "en";
   const t = useTranslations("Navbar");
-  const nav_routing = createNavRouting(locale);
+  const { categories } = useStore();
+  const nav_routing = createNavRouting(locale, categories);
   const pathName = usePathname();
 
   return (
@@ -59,7 +61,7 @@ const Navbar = () => {
                             )}
                             asChild
                           >
-                            <Link href={child.url}>{t(child.title)}</Link>
+                            <Link href={child.url}>{child.title}</Link>
                           </NavigationMenuLink>
                         );
                       })}

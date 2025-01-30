@@ -25,11 +25,13 @@ import { createNavRouting } from "@/constants/route";
 import { useLocale, useTranslations } from "next-intl";
 import LanguageSwitcher from "../language-switcher/language-swithcer";
 import { usePathname } from "next/navigation";
+import { useStore } from "@/store";
 // Menu items.
 
 function AppSidebar() {
-  const locale = useLocale();
-  const nav_routing = createNavRouting(locale);
+  const locale = useLocale() as "en" | "az";
+  const { categories } = useStore();
+  const nav_routing = createNavRouting(locale, categories);
   const [isOpen, setIsOpen] = useState(false);
   const t = useTranslations("Navbar");
   const pathName = usePathname();
@@ -89,8 +91,7 @@ function AppSidebar() {
                                   className="flex gap-2 items-center"
                                   href={child.url}
                                 >
-                                  <child.icon className="w-4 h-4" />
-                                  {t(child.title)}
+                                  {child.title}
                                 </Link>
                               </SidebarMenuSubItem>
                             );

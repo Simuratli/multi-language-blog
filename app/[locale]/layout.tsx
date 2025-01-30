@@ -6,6 +6,29 @@ import Navbar from "@/components/navbar";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import Footer from "@/components/footer/footer";
+import groq from "groq";
+import client from "@/sanity";
+import ZustandProvider from "@/providers/zustand-provider";
+
+const categoriesQuery = groq`
+  *[_type == "category"] {
+    _id,
+    title,
+    slug
+  }
+`;
+
+const postsQuery = groq`*[_type == "post"] | order(_createdAt desc)`;
+
+async function getCategories() {
+  const categories = await client.fetch(categoriesQuery);
+  return categories;
+}
+
+async function getPosts() {
+  const categories = await client.fetch(categoriesQuery);
+  return categories;
+}
 
 export const metadata: Metadata = {
   title: "U Tech Blog",
@@ -18,25 +41,29 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
+  const categories = await getCategories();
+  const posts = await getPosts();
 
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages();
-
+  console.log(posts, "posts");
   return (
     <html lang={locale}>
       <body className={`antialiased`}>
         <NextIntlClientProvider messages={messages}>
-          <SidebarProvider defaultOpen={false}>
-            <AppSidebar />
-            <div className="mx-auto w-full">
-              <main className="w-full min-h-[88vh] max-w-[1240px] mx-auto px-4">
-                <Navbar />
-                {children}
-              </main>
-              <Footer />
-            </div>
-          </SidebarProvider>
+          <ZustandProvider categories={categories}>
+            <SidebarProvider defaultOpen={false}>
+              <AppSidebar />
+              <div className="mx-auto w-full">
+                <main className="w-full min-h-[88vh] max-w-[1240px] mx-auto px-4">
+                  <Navbar />
+                  {children}
+                </main>
+                <Footer />
+              </div>
+            </SidebarProvider>
+          </ZustandProvider>
         </NextIntlClientProvider>
       </body>
     </html>

@@ -3,6 +3,7 @@ import Popular from "@/containers/popular/popular";
 import Heading from "@/components/heading/heading";
 import Latest from "@/containers/latest/latest";
 import { Suspense } from "react";
+import Subscribe from "@/components/subscribe/subscribe";
 
 export default function Home() {
   return (
@@ -18,6 +19,9 @@ export default function Home() {
       </Suspense>
       <Suspense fallback={<Latest.Skeleton />}>
         <Latest />
+      </Suspense>
+      <Suspense fallback={<Latest.Skeleton />}>
+        <Subscribe />
       </Suspense>
     </div>
   );
