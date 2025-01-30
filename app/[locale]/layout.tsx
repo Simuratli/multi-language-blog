@@ -18,7 +18,6 @@ const categoriesQuery = groq`
   }
 `;
 
-const postsQuery = groq`*[_type == "post"] | order(_createdAt desc)`;
 
 async function getCategories() {
   const categories = await client.fetch(categoriesQuery);
@@ -47,7 +46,6 @@ export default async function RootLayout({
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages();
-  console.log(posts, "posts");
   return (
     <html lang={locale}>
       <body className={`antialiased`}>
