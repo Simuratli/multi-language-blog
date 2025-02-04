@@ -42,7 +42,7 @@ export interface Image {
   asset: ImageAsset;
 }
 
-interface Author {
+export interface Author {
   name: string;
   _id: string;
   _updatedAt: string;
@@ -53,14 +53,14 @@ interface Author {
   _type: "author";
 }
 
-interface Span {
+export interface Span {
   _type: "span";
   marks: string[]; // Marks can be an array of strings (e.g., bold, italic, etc.)
   text: string;
   _key: string;
 }
 
-interface Block {
+export interface BlockContent {
   _type: "block";
   children: Span[]; // List of children (spans) within the block
   style: "normal" | "h1" | "h2" | "h3" | "blockquote"; // You can add other possible styles here
@@ -69,8 +69,8 @@ interface Block {
 }
 
 interface LocaleBlockContent {
-  az: Block[]; // Azerbaijani content
-  en: Block[]; // English content
+  az: BlockContent[]; // Azerbaijani content
+  en: BlockContent[]; // English content
 }
 
 export interface PostType {
