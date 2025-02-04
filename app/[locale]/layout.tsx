@@ -18,7 +18,6 @@ const categoriesQuery = groq`
   }
 `;
 
-
 async function getCategories() {
   const categories = await client.fetch(categoriesQuery);
   return categories;

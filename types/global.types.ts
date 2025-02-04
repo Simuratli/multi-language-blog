@@ -89,3 +89,15 @@ export interface PostType {
   body: LocaleBlockContent;
   categories: any;
 }
+
+export interface QuoteResponseType {
+  body: LocaleBlockContent;
+  _updatedAt: string;
+  _rev: string;
+  _id: string;
+  _createdAt: string;
+  _type: string;
+  title: string;
+  image: Image;
+  author: string;
+}

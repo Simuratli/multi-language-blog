@@ -2,17 +2,35 @@ import Quote from "@/components/quote/quote";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
+import groq from "groq";
+import client, { urlFor } from "@/sanity";
+import { QuoteResponseType } from "@/types/global.types";
+import { headers } from "next/headers";
 
-const QuoteGeneral = () => {
+const quoteQuery = groq`
+  *[_type == "quote"][0]
+`;
+
+const QuoteGeneral = async () => {
+  const quote: QuoteResponseType = await client.fetch(quoteQuery);
+  const headersList = headers();
+  const locale =
+    ((await headersList).get("x-next-intl-locale") as "en" | "az") || "en"; // Default to 'en' if not found
+  if (!quote) {
+    return <QuoteGeneral.Skeleton />;
+  }
+
   return (
     <div className="flex items-end flex-col gap-5 sm:flex-row space-x-4">
-      <Quote />
+      <Quote locale={locale} quote={quote} />
       <div className="flex items-center gap-2">
         <Avatar>
-          <AvatarImage src="https://pravoslavie.ru/sas/image/100538/53893.x.jpg" />
-          <AvatarFallback>DY</AvatarFallback>
+          <AvatarImage src={urlFor(quote.image).url()} />
+          <AvatarFallback>
+            {quote.author.slice(0, 2).toUpperCase()}
+          </AvatarFallback>
         </Avatar>
-        <p className="text-[var(--yellow)] font-bold">Dostoyevsky</p>
+        <p className="text-[var(--yellow)] font-bold">{quote.author}</p>
       </div>
     </div>
   );

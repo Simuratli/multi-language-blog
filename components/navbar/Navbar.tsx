@@ -39,7 +39,7 @@ const Navbar = () => {
           <NavigationMenuList>
             {nav_routing.map((menu) => {
               return menu.children ? (
-                <NavigationMenuItem key={menu.title}>
+                <NavigationMenuItem key={menu.title + Math.random().toString()}>
                   <NavigationMenuTrigger
                     className={cn(
                       pathName.includes(menu.url) ? "bg-[var(--yellow)]" : "",
@@ -52,7 +52,7 @@ const Navbar = () => {
                       {menu.children.map((child) => {
                         return (
                           <NavigationMenuLink
-                            key={child.title}
+                            key={child.title + Math.random().toString()}
                             className={cn(
                               "hover:bg-gray-900 p-2 hover:text-white cursor-pointer",
                               pathName === child.url

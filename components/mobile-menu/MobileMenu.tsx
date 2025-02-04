@@ -46,7 +46,7 @@ function AppSidebar() {
               {nav_routing.map((menu) => {
                 return menu.children ? (
                   <Collapsible
-                    key={menu.title}
+                    key={menu.title + Math.random().toString()}
                     open={isOpen}
                     onOpenChange={setIsOpen}
                     defaultOpen={false}
@@ -85,7 +85,7 @@ function AppSidebar() {
                                     : null,
                                   "p-2 rounded",
                                 )}
-                                key={child.title}
+                                key={child.title + Math.random().toString()}
                               >
                                 <Link
                                   className="flex gap-2 items-center"

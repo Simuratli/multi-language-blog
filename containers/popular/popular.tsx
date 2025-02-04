@@ -37,7 +37,7 @@ const Popular = async () => {
         {/* Secondary cards */}
         <div className="flex flex-col gap-5 lg:w-1/3">
           {popularPosts.slice(1).map((post) => (
-            <Card size={CARD_SIZE_ENUM.SMALL} post={post} />
+            <Card key={post._id} size={CARD_SIZE_ENUM.SMALL} post={post} />
           ))}
         </div>
       </div>

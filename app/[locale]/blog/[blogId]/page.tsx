@@ -1,38 +1,77 @@
 import BlogHeader from "@/components/blog-header/blog-header";
+import { Skeleton } from "@/components/ui/skeleton";
+import client, { urlFor } from "@/sanity";
+import { PostType } from "@/types/global.types";
+import groq from "groq";
 import Image from "next/image";
 import React from "react";
+import { PortableText } from "@portabletext/react";
+import { CustomCodeBlock } from "@/utils/custom-code-block";
 
-const Page = () => {
+interface BlogIdPageProps {
+  params: Promise<{
+    locale: "az" | "en";
+    blogId: string;
+  }>;
+}
+
+const Page = async ({ params }: BlogIdPageProps) => {
+  const { locale, blogId } = await params;
+  const postsQuery = groq`*[_type == "post" && slug.current == $blogId]{
+    ...,
+    author->{...}
+    }[0]`;
+
+  const post: PostType | null = await client.fetch(postsQuery, { blogId });
+
+  if (!post) {
+    return <Page.Skeleton />;
+  }
+
   return (
     <div className="mt-24">
-      <BlogHeader />
+      <BlogHeader post={post} locale={locale} />
       <div className="relative w-full h-[343px] md:h-[560px] mt-[40px] ">
         <Image
-          alt=""
-          className="rounded-xl shadow-md object-cover w-[100%] h-[100%]"
+          alt={post.name[locale]}
+          className="rounded-sm shadow-md object-cover w-[100%] h-[100%]"
           fill
-          src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*QdJYhw1FqxBRXRc5_5MhKA.png"
+          src={urlFor(post.mainImage).url()}
         />
       </div>
 
-      <div className="mt-[40px] w-full md:w-[60%] mx-auto *:text-[19px] *:font-light">
-        <p>
-          Black-and-white photography is a timeless art form that transcends
-          trends and technology. By stripping away color, this medium emphasizes
-          composition, texture, and emotion, creating images that are both
-          powerful and evocative.
-        </p>
-        <p>
-          Black-and-white photography challenges photographers to think beyond
-          color and focus on the essence of their subjects. By mastering this
-          art form, you can create images that are not only visually compelling
-          but also deeply meaningful. Pick up your camera, embrace the shades of
-          gray, and start your journey into the world of black-and-white
-          photography today.
-        </p>
+      <div className="mt-[40px] w-full md:w-[80%] mx-auto *:text-[19px] *:leading-relaxed *:mb-6 *:text-gray-800">
+        <PortableText value={post.body[locale]} components={CustomCodeBlock} />
       </div>
     </div>
   );
 };
 
 export default Page;
+
+Page.Skeleton = function BlogPageSkeleton() {
+  return (
+    <div className="mt-24">
+      <BlogHeader.Skeleton />
+      <div className="relative w-full h-[343px] md:h-[560px] mt-[40px] ">
+        <Skeleton className="rounded-xl shadow-md object-cover w-[100%] h-[100%]" />
+      </div>
+
+      <div className="mt-[40px] w-full md:w-[60%] mx-auto *:text-[19px] *:font-light">
+        <Skeleton className="rounded-sm mb-5 shadow-md object-cover w-full h-[40px]" />
+        <Skeleton className="rounded-sm mb-5 shadow-md object-cover w-full h-[40px]" />
+        <Skeleton className="rounded-sm mb-5 shadow-md object-cover w-full h-[40px]" />
+        <Skeleton className="rounded-sm mb-5 shadow-md object-cover w-full h-[40px]" />
+        <Skeleton className="rounded-sm mb-5 shadow-md object-cover w-full h-[40px]" />
+        <Skeleton className="rounded-sm mb-5 shadow-md object-cover w-full h-[40px]" />
+        <Skeleton className="rounded-sm mb-5 shadow-md object-cover w-full h-[40px]" />
+        <Skeleton className="rounded-sm mb-5 shadow-md object-cover w-full h-[40px]" />
+        <Skeleton className="rounded-sm mb-5 shadow-md object-cover w-full h-[40px]" />
+        <Skeleton className="rounded-sm mb-5 shadow-md object-cover w-full h-[40px]" />
+        <Skeleton className="rounded-sm mb-5 shadow-md object-cover w-full h-[40px]" />
+        <Skeleton className="rounded-sm mb-5 shadow-md object-cover w-full h-[40px]" />
+        <Skeleton className="rounded-sm mb-5 shadow-md object-cover w-full h-[40px]" />
+      </div>
+    </div>
+  );
+};
