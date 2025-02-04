@@ -1,5 +1,8 @@
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
-import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs"; //
+import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { PortableTextComponents } from "@portabletext/react";
+import Image from "next/image";
+import { urlFor } from "@/sanity";
 
 type CodeBlock = {
   _type: "code";
@@ -8,9 +11,10 @@ type CodeBlock = {
   filename?: string;
 };
 
-export const CustomCodeBlock = {
+export const CustomCodeBlock: PortableTextComponents = {
   types: {
     code: ({ value }: { value: CodeBlock }) => {
+      console.log(value, "valie");
       const { code, language, filename } = value || {};
 
       return (
@@ -20,9 +24,9 @@ export const CustomCodeBlock = {
             language={language}
             style={atomOneDark}
             customStyle={{
-              backgroundColor: "transparent", // Matches Tailwind's black background
+              backgroundColor: "transparent",
               padding: 0,
-              fontSize: "0.875rem", // Tailwind's text-sm
+              fontSize: "0.875rem",
               lineHeight: "1.5",
               fontFamily: "monospace",
             }}
@@ -32,15 +36,34 @@ export const CustomCodeBlock = {
         </div>
       );
     },
+    image: ({ value }: { value: any }) => {
+      const { code, language, filename } = value || {};
+
+      return (
+        <div className="relative text-white rounded-lg">
+          <Image
+            id="innerImage"
+            className=" shadow-lg"
+            width={200}
+            height={200}
+            alt={value.alt}
+            src={urlFor(value).url()}
+          />
+        </div>
+      );
+    },
   },
   marks: {
-    code: ({ children }: { children: React.ReactNode }) => (
+    code: ({ children }) => (
       <code className="bg-gray-800 text-green-400 px-1 py-0.5 rounded-md text-sm font-mono">
         {children}
       </code>
     ),
-    strong: ({ children }: { children: React.ReactNode }) => (
-      <strong>{children}</strong>
-    ), // Bold text rendering
+    strong: ({ children }) => <strong>{children}</strong>,
+  },
+  block: {
+    h1: ({ children, value }) => (
+      <h1 className="text-3xl font-bold mb-4 mt-6">{children}</h1>
+    ),
   },
 };

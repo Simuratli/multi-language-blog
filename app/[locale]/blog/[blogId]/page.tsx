@@ -27,7 +27,7 @@ const Page = async ({ params }: BlogIdPageProps) => {
   if (!post) {
     return <Page.Skeleton />;
   }
-
+  console.log(post);
   return (
     <div className="mt-24">
       <BlogHeader post={post} locale={locale} />
@@ -40,7 +40,7 @@ const Page = async ({ params }: BlogIdPageProps) => {
         />
       </div>
 
-      <div className="mt-[40px] w-full md:w-[80%] mx-auto *:text-[19px] *:leading-relaxed *:mb-6 *:text-gray-800">
+      <div className="mt-[40px] w-full md:w-[80%] mx-auto *:leading-relaxed *:mb-6 *:text-gray-800">
         <PortableText value={post.body[locale]} components={CustomCodeBlock} />
       </div>
     </div>
@@ -57,7 +57,7 @@ Page.Skeleton = function BlogPageSkeleton() {
         <Skeleton className="rounded-xl shadow-md object-cover w-[100%] h-[100%]" />
       </div>
 
-      <div className="mt-[40px] w-full md:w-[60%] mx-auto *:text-[19px] *:font-light">
+      <div className="mt-[40px] w-full md:w-[60%] mx-auto *:font-light">
         <Skeleton className="rounded-sm mb-5 shadow-md object-cover w-full h-[40px]" />
         <Skeleton className="rounded-sm mb-5 shadow-md object-cover w-full h-[40px]" />
         <Skeleton className="rounded-sm mb-5 shadow-md object-cover w-full h-[40px]" />

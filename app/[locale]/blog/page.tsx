@@ -12,7 +12,7 @@ const BlogPage = async ({
   searchParams,
   params,
 }: {
-  searchParams: Promise<{page:number}>;
+  searchParams: Promise<{ page: number }>;
   params: Promise<{ locale: "az" | "en" }>;
 }) => {
   const currentPage = (await searchParams).page;
