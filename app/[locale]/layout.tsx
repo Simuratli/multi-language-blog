@@ -9,7 +9,7 @@ import Footer from "@/components/footer/footer";
 import groq from "groq";
 import client from "@/sanity";
 import ZustandProvider from "@/providers/zustand-provider";
-
+import { ToastContainer } from "react-toastify";
 const categoriesQuery = groq`
   *[_type == "category"] {
     _id,
@@ -51,6 +51,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <ZustandProvider categories={categories}>
             <SidebarProvider defaultOpen={false}>
+              <ToastContainer />
               <AppSidebar />
               <div className="mx-auto w-full">
                 <main className="w-full min-h-[88vh] max-w-[1240px] mx-auto px-4">

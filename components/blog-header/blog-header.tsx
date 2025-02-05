@@ -1,10 +1,11 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Linkedin, Share } from "lucide-react";
 import { Skeleton } from "../ui/skeleton";
 import { PostType } from "@/types/global.types";
 import { urlFor } from "@/sanity";
 import { calculateReadingTime } from "@/utils/calculate-reading-time";
+import LinkedinShare from "../linkedin-share/LinkedinShare";
+import CopyClipboard from "../copy-clipboard/CopyClipboard";
 
 const BlogHeader = ({
   post,
@@ -37,8 +38,8 @@ const BlogHeader = ({
           {calculateReadingTime(post.body[locale])} Mins Read
         </span>
         <div className="flex gap-3">
-          <Share className="cursor-pointer" color="#757575" />
-          <Linkedin className="cursor-pointer" color="#757575" />
+          <CopyClipboard />
+          <LinkedinShare />
         </div>
       </div>
     </div>
