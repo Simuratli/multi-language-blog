@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import client from "@/sanity";
 import { AboutMeType } from "@/types/global.types";
-import groq from "groq";
 import { Download, LinkIcon } from "lucide-react";
 import { PortableText } from "@portabletext/react";
 import { headers } from "next/headers";

@@ -1,6 +1,7 @@
 // app/sitemap.ts
 import { categoriesQuery, postsQuery } from '@/constants/requests'
 import client from '@/sanity'
+import { PostType } from '@/types/global.types'
 import { MetadataRoute } from 'next'
 import { headers } from 'next/headers'
 
@@ -10,12 +11,12 @@ async function getPages() {
   const posts = await client.fetch(postsQuery)
 
   // Generate category and post URLs with language support
-  const categoriesUrls = categories.flatMap((category: any) => [
+  const categoriesUrls = categories.flatMap((category:PostType) => [
     { slug: `categories/${category.slug.current}`, lang: 'en' },
     { slug: `az/categories/${category.slug.current}`, lang: 'az' },
   ])
 
-  const postsUrls = posts.flatMap((post: any) => [
+  const postsUrls = posts.flatMap((post: PostType) => [
     { slug: `blog/${post.slug.current}`, lang: 'en' },
     { slug: `az/blog/${post.slug.current}`, lang: 'az' },
   ])
