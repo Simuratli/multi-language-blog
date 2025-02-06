@@ -9,6 +9,7 @@ import { PortableText } from "@portabletext/react";
 import { CustomCodeBlock } from "@/utils/custom-code-block";
 import { Metadata } from "next";
 import { blogContentToString } from "@/utils/blockcontent-to-string";
+import { postsQueryWithId } from "@/constants/requests";
 
 interface BlogIdPageProps {
   params: Promise<{
@@ -21,8 +22,8 @@ export async function generateMetadata({
   params,
 }: BlogIdPageProps): Promise<Metadata> {
   const { blogId, locale } = await params;
-  const postsQuery = groq`*[_type == "post" && slug.current == $blogId][0]`;
-  const post: PostType | null = await client.fetch(postsQuery, { blogId });
+  
+  const post: PostType | null = await client.fetch(postsQueryWithId, { blogId });
   const title = post ? post.name[locale] : "Unkai Tech Blog";
   const description = post
     ? blogContentToString(post.body[locale])

@@ -9,10 +9,8 @@ import React, { Suspense } from "react";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Metadata } from "next";
+import { aboutQuery } from "@/constants/requests";
 
-const aboutQuery = groq`
-  *[_type == "about"][0]
-`;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {

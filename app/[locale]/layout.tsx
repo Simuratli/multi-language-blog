@@ -6,18 +6,10 @@ import Navbar from "@/components/navbar";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import Footer from "@/components/footer/footer";
-import groq from "groq";
 import client from "@/sanity";
 import ZustandProvider from "@/providers/zustand-provider";
 import { ToastContainer } from "react-toastify";
-
-const categoriesQuery = groq`
-  *[_type == "category"] {
-    _id,
-    title,
-    slug
-  }
-`;
+import { categoriesQuery } from "@/constants/requests";
 
 async function getCategories() {
   const categories = await client.fetch(categoriesQuery);
