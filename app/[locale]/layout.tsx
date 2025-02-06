@@ -10,6 +10,7 @@ import groq from "groq";
 import client from "@/sanity";
 import ZustandProvider from "@/providers/zustand-provider";
 import { ToastContainer } from "react-toastify";
+
 const categoriesQuery = groq`
   *[_type == "category"] {
     _id,
@@ -23,15 +24,50 @@ async function getCategories() {
   return categories;
 }
 
-// async function getPosts() {
-//   const categories = await client.fetch(categoriesQuery);
-//   return categories;
-// }
-
 export const metadata: Metadata = {
-  title: "U Tech Blog",
-  description: "Tech blog about development",
-};
+  title: {
+    template: '%s | UNKAI',
+    default: 'Unkai Tech Blog', // Used when no title is provided
+  },
+  description: 'Welcome to my website',
+  openGraph: {
+    title: 'My Site',
+    description: 'Welcome to my website',
+    url: 'https://mysite.com',
+    siteName: 'UNKAI',
+    images: [
+      {
+        url: '/images/bg.png',
+        width: 1200,
+        height: 630,
+      }
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  twitter: {
+    title: 'UNKAI',
+    card: 'summary_large_image',
+  },
+  icons: {
+    shortcut: '/favicon.ico',
+  },
+  verification: {
+    google: 'google-site-verification-code',
+    yandex: 'yandex-verification-code',
+  },
+}
 
 export default async function RootLayout({
   children,

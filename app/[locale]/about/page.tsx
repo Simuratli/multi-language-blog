@@ -8,12 +8,28 @@ import { headers } from "next/headers";
 import React, { Suspense } from "react";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Metadata } from "next";
 
 const aboutQuery = groq`
   *[_type == "about"][0]
 `;
 
+
+
+export async function generateMetadata(
+): Promise<Metadata> {
+  return {
+    title: "About",
+    openGraph: {
+      images: ['/aboutbg.png'],
+    },
+  }
+}
+
 const AboutPage = async () => {
+
+
+
   const about: AboutMeType = await client.fetch(aboutQuery);
   if (!about) {
     return <AboutPage.Skeleton />;

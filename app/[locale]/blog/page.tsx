@@ -5,16 +5,18 @@ import client from "@/sanity";
 import { CARD_SIZE_ENUM } from "@/types/enums";
 import { PostType } from "@/types/global.types";
 import groq from "groq";
-// import { CARD_SIZE_ENUM } from "@/types/enums";
 import React from "react";
+
+
+interface BlogPageProps {
+  searchParams: Promise<{ page: number }>;
+  params: Promise<{ locale: "az" | "en" }>;
+}
 
 const BlogPage = async ({
   searchParams,
   params,
-}: {
-  searchParams: Promise<{ page: number }>;
-  params: Promise<{ locale: "az" | "en" }>;
-}) => {
+}: BlogPageProps) => {
   const currentPage = (await searchParams).page;
   const queryPage = currentPage - 1;
   const locale = (await params).locale;
@@ -23,7 +25,9 @@ const BlogPage = async ({
   author->{...}
   }`;
   const TOTAL_POSTS_QUERY = `count(*[_type == "post"])`;
-  const posts: PostType[] = await client.fetch(postsQuery);
+  const posts: PostType[] = await client.fetch(postsQuery, undefined, {
+    next: { revalidate: 60 }
+  });
   const totalCount: number = await client.fetch(TOTAL_POSTS_QUERY);
   return (
     <>
