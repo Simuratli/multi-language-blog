@@ -59,6 +59,7 @@ export const metadata: Metadata = {
   twitter: {
     title: 'UNKAI',
     card: 'summary_large_image',
+    images: ['/images/bg.png'],
   },
   icons: {
     shortcut: '/favicon.ico',
