@@ -61,13 +61,14 @@ export const metadata: Metadata = {
   twitter: {
     title: "UNKAI",
     card: "summary_large_image",
+    description:"A multilingual platform dedicated to front-end development offering tutorials and insights.",
     images: ["/images/bg.png"],
   },
   icons: {
     shortcut: "/favicon.ico",
   },
   verification: {
-    google: "google-site-verification-code",
+    google: "LYxCfyRNBX2i-yNHpLKuCDilh4TDTGwERTWjzq2rPc4",
     yandex: "yandex-verification-code",
   },
 };
