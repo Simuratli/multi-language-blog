@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-const Footer = ({locale}:{locale:'az'| "en"}) => {
+const Footer = ({locale}:{locale:string}) => {
   return (
     <footer className="px-5 flex-col gap-8 sm:flex-row flex justify-between items-center py-10">
       <p className="font-semibold text-[14px]">
