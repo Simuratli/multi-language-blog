@@ -97,7 +97,7 @@ export default async function RootLayout({
                   <Navbar />
                   {children}
                 </main>
-                <Footer />
+                <Footer locale={locale} />
               </div>
             </SidebarProvider>
           </ZustandProvider>
