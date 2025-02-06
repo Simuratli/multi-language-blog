@@ -26,24 +26,26 @@ async function getCategories() {
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | UNKAI',
-    default: 'Unkai Tech Blog', // Used when no title is provided
+    template: "%s | UNKAI",
+    default: "Unkai Tech Blog", // Used when no title is provided
   },
-  description: 'Welcome to my website',
+  description:
+    "Unkai Tech Blog is a multilingual platform (Azerbaijani and English) dedicated to front-end development, offering insights, tutorials, and updates for developers.",
   openGraph: {
-    title: 'My Site',
-    description: 'Welcome to my website',
-    url: 'https://mysite.com',
-    siteName: 'UNKAI',
+    title: "Unkai Tech Blog",
+    description:
+      "Unkai Tech Blog is a multilingual platform (Azerbaijani and English) dedicated to front-end development, offering insights, tutorials, and updates for developers.",
+    url: "https://mysite.com",
+    siteName: "UNKAI",
     images: [
       {
-        url: '/images/bg.png',
+        url: "/images/bg.png",
         width: 1200,
         height: 630,
-      }
+      },
     ],
-    locale: 'en_US',
-    type: 'website',
+    locale: "en_US",
+    type: "website",
   },
   robots: {
     index: true,
@@ -51,24 +53,24 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   twitter: {
-    title: 'UNKAI',
-    card: 'summary_large_image',
-    images: ['/images/bg.png'],
+    title: "UNKAI",
+    card: "summary_large_image",
+    images: ["/images/bg.png"],
   },
   icons: {
-    shortcut: '/favicon.ico',
+    shortcut: "/favicon.ico",
   },
   verification: {
-    google: 'google-site-verification-code',
-    yandex: 'yandex-verification-code',
+    google: "google-site-verification-code",
+    yandex: "yandex-verification-code",
   },
-}
+};
 
 export default async function RootLayout({
   children,

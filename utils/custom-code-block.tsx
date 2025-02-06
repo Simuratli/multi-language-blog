@@ -37,8 +37,6 @@ export const CustomCodeBlock: PortableTextComponents = {
       );
     },
     image: ({ value }: { value: any }) => {
-      const { code, language, filename } = value || {};
-
       return (
         <div className="relative text-white rounded-lg">
           <Image

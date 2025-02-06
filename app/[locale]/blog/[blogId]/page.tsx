@@ -7,12 +7,31 @@ import Image from "next/image";
 import React from "react";
 import { PortableText } from "@portabletext/react";
 import { CustomCodeBlock } from "@/utils/custom-code-block";
+import { Metadata } from "next";
+import { blogContentToString } from "@/utils/blockcontent-to-string";
 
 interface BlogIdPageProps {
   params: Promise<{
     locale: "az" | "en";
     blogId: string;
   }>;
+}
+
+export async function generateMetadata({
+  params,
+}: BlogIdPageProps): Promise<Metadata> {
+  const { blogId, locale } = await params;
+  const postsQuery = groq`*[_type == "post" && slug.current == $blogId]`;
+  const post: PostType | null = await client.fetch(postsQuery, { blogId });
+  return {
+    title: post ? `${post.name[locale]}` : "Unkai Tech Blog",
+    description: post
+      ? blogContentToString(post.body[locale])
+      : "Unkai Tech Blog is a multilingual platform (Azerbaijani and English) dedicated to front-end development, offering insights, tutorials, and updates for developers.",
+    openGraph: {
+      images: [post ? urlFor(post.mainImage).url() : "/images/bg.png"],
+    },
+  };
 }
 
 const Page = async ({ params }: BlogIdPageProps) => {

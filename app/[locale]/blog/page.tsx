@@ -7,16 +7,12 @@ import { PostType } from "@/types/global.types";
 import groq from "groq";
 import React from "react";
 
-
 interface BlogPageProps {
   searchParams: Promise<{ page: number }>;
   params: Promise<{ locale: "az" | "en" }>;
 }
 
-const BlogPage = async ({
-  searchParams,
-  params,
-}: BlogPageProps) => {
+const BlogPage = async ({ searchParams, params }: BlogPageProps) => {
   const currentPage = (await searchParams).page;
   const queryPage = currentPage - 1;
   const locale = (await params).locale;
@@ -26,7 +22,7 @@ const BlogPage = async ({
   }`;
   const TOTAL_POSTS_QUERY = `count(*[_type == "post"])`;
   const posts: PostType[] = await client.fetch(postsQuery, undefined, {
-    next: { revalidate: 60 }
+    next: { revalidate: 60 },
   });
   const totalCount: number = await client.fetch(TOTAL_POSTS_QUERY);
   return (

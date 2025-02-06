@@ -14,22 +14,16 @@ const aboutQuery = groq`
   *[_type == "about"][0]
 `;
 
-
-
-export async function generateMetadata(
-): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "About",
     openGraph: {
-      images: ['/aboutbg.png'],
+      images: ["/aboutbg.png"],
     },
-  }
+  };
 }
 
 const AboutPage = async () => {
-
-
-
   const about: AboutMeType = await client.fetch(aboutQuery);
   if (!about) {
     return <AboutPage.Skeleton />;
