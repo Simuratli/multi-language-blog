@@ -4,14 +4,43 @@ import client from "@/sanity";
 import { CARD_SIZE_ENUM } from "@/types/enums";
 import { PostType } from "@/types/global.types";
 import groq from "groq";
+import { Metadata } from "next";
 // import { CARD_SIZE_ENUM } from "@/types/enums";
 import React from "react";
 
-const CategoryId = async ({
-  params,
-}: {
+interface CategoryIdPageProps {
   params: Promise<{ locale: "az" | "en"; categoryId: string }>;
-}) => {
+}
+
+export async function generateMetadata({
+  params,
+}: CategoryIdPageProps): Promise<Metadata> {
+  const { categoryId, locale } = await params;
+
+  const categoriesQuery = groq`
+  *[_type == "category" && slug.current == $categoryId] {
+    _id,
+    title,
+    slug
+  }[0]
+`;
+
+  const categories = await client.fetch(categoriesQuery, { categoryId });
+  const title = categories ? categories.title[locale] : "Unkai Tech Blog";
+  const description =
+    "Unkai Tech Blog is a multilingual platform (Azerbaijani and English) dedicated to front-end development, offering insights, tutorials, and updates for developers.";
+  const image = "/images/bg.png";
+
+  return {
+    title: title,
+    description: description,
+    openGraph: {
+      images: [image],
+    },
+  };
+}
+
+const CategoryId = async ({ params }: CategoryIdPageProps) => {
   const { categoryId } = await params;
   const postsQuery = groq`*[_type == "post" && $categoryId in categories[]->.slug.current]{
     ...,

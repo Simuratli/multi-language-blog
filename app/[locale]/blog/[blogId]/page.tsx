@@ -23,9 +23,11 @@ export async function generateMetadata({
   const { blogId, locale } = await params;
   const postsQuery = groq`*[_type == "post" && slug.current == $blogId][0]`;
   const post: PostType | null = await client.fetch(postsQuery, { blogId });
-  const title = post ? post.name[locale] : "Unkai Tech Blog"
-  const description = post ? blogContentToString(post.body[locale]) : "Unkai Tech Blog is a multilingual platform (Azerbaijani and English) dedicated to front-end development, offering insights, tutorials, and updates for developers."
-  const image = post ? urlFor(post.mainImage).url() : "/images/bg.png"
+  const title = post ? post.name[locale] : "Unkai Tech Blog";
+  const description = post
+    ? blogContentToString(post.body[locale])
+    : "Unkai Tech Blog is a multilingual platform (Azerbaijani and English) dedicated to front-end development, offering insights, tutorials, and updates for developers.";
+  const image = post ? urlFor(post.mainImage).url() : "/images/bg.png";
 
   return {
     title: title,

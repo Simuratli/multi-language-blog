@@ -5,11 +5,18 @@ import client from "@/sanity";
 import { CARD_SIZE_ENUM } from "@/types/enums";
 import { PostType } from "@/types/global.types";
 import groq from "groq";
+import { Metadata } from "next";
 import React from "react";
 
 interface BlogPageProps {
   searchParams: Promise<{ page: number }>;
   params: Promise<{ locale: "az" | "en" }>;
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Blog",
+  };
 }
 
 const BlogPage = async ({ searchParams, params }: BlogPageProps) => {
